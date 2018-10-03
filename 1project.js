@@ -1,4 +1,4 @@
-var ONEPROJECT = (function() {
+const ONEPROJECT = (function() {
     // const background = document.querySelector("#background");
     // const projectArea = document.querySelector(".project_container");
     const todoArea = document.querySelector(".todo_area");
