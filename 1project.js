@@ -14,10 +14,6 @@ const ONEPROJECT = (function() {
         todoArea.lastChild.querySelector("input[type=text]").focus();
     }
 
-    function deleteTodo(target) {
-        return target.parentNode.parentNode.removeChild(target.parentNode);
-    }
-
     function eventHandler(event) {
         switch(event.type) {
             case "keydown":
@@ -47,7 +43,7 @@ const ONEPROJECT = (function() {
                     }
                 }
                 if ((eTarget.className === "close-button") && eTarget.parentNode.querySelector("input[type=text]").value.length) {
-                    deleteTodo(eTarget);
+                    eTarget.parentNode.remove();
                 }
                 break;
         }
