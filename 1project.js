@@ -2,15 +2,15 @@ const ONEPROJECT = (function() {
     // const background = document.querySelector("#background");
     // const projectArea = document.querySelector(".project_container");
     const todoArea = document.querySelector(".todo_area");
-
     const disableToggle = args => args.forEach(el => el.disabled = !el.disabled);
+    const setAttrs = (node, attrs) => Object.keys(attrs).forEach(el => node.setAttribute(el, attrs[el]));
+    const nodeAdder = (type, pr) => pr.appendChild(document.createElement(type));
 
     function addNewInput() {
-        var todo = document.createElement("li");
-        todo.innerHTML = `<input type="checkbox" disabled>
-                          <input type="text" placeholder="할 일 입력">
-                          <a href="#" class="close-button"></a>`;
-        todoArea.appendChild(todo);
+        let todoLi = nodeAdder("li", todoArea);
+        setAttrs(nodeAdder("input", todoLi), { type: "checkbox", disabled: "true" });
+        setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력" });
+        setAttrs(nodeAdder("a", todoLi), { href: "#", class: "close-button" });
         todoArea.lastChild.querySelector("input[type=text]").focus();
     }
 
