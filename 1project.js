@@ -5,6 +5,7 @@ const ONEPROJECT = (function() {
     const disableToggle = args => args.forEach(el => el.disabled = !el.disabled);
     const setAttrs = (node, attrs) => Object.keys(attrs).forEach(el => node.setAttribute(el, attrs[el]));
     const nodeAdder = (type, pr) => pr.appendChild(document.createElement(type));
+    const eventAdder = node => (eType,cb) => eType.forEach(el => node.addEventListener(el, cb));
 
     function addNewInput() {
         let todoLi = nodeAdder("li", todoArea);
@@ -49,8 +50,5 @@ const ONEPROJECT = (function() {
         }
     }
 
-    return (function() {
-        document.querySelector("#background").addEventListener("keydown", eventHandler);
-        document.querySelector("#background").addEventListener("mousedown", eventHandler);
-    }());
+    return eventAdder(document.querySelector("#background"))(["keydown", "mousedown"], eventHandler);
 }());
