@@ -15,12 +15,12 @@ const ONEPROJECT = (function() {
         todoArea.lastChild.querySelector("input[type=text]").focus();
     }
 
-    function eventHandler(event) {
-        switch(event.type) {
+    function eventHandler(e) {
+        switch(e.type) {
             case "keydown":
-                var activeEl = document.activeElement;
-                if (activeEl.type === "text") {
-                    if (event.keyCode === 13 && activeEl.value.length) {
+                if (e.keyCode === 13) {
+                    let activeEl = document.activeElement;
+                    if (activeEl.type === "text" && activeEl.value) {
                         if (activeEl.parentNode.nextSibling === null || document.querySelectorAll("INPUT").length === 1) {
                             disableToggle(activeEl.parentNode.querySelectorAll("INPUT"));
                             addNewInput();
@@ -31,24 +31,24 @@ const ONEPROJECT = (function() {
                 }
                 break;
             case "mousedown":
-                var activeEl = document.activeElement;
-                var eTarget = event.target;
-                if (eTarget.type === "text" && eTarget.value && activeEl !== eTarget) {
-                    disableToggle([eTarget]);
-                }
-                if (activeEl.type === "text" && activeEl.value && activeEl !== eTarget) {
-                    disableToggle([activeEl]);
-                    if (activeEl.parentNode.nextSibling === null || document.querySelectorAll("INPUT").length === 1) {
-                        disableToggle(activeEl.parentNode.querySelectorAll("INPUT"));
-                        addNewInput();
+                let activeEl = document.activeElement;
+                if (activeEl !== e.target) {
+                    if (e.target.type === "text" && e.target.value) {
+                        disableToggle([e.target]);
                     }
-                }
-                if ((eTarget.className === "close-button") && eTarget.parentNode.querySelector("input[type=text]").value.length) {
-                    eTarget.parentNode.remove();
+                    if (activeEl.type === "text" && activeEl.value) {
+                        disableToggle([activeEl]);
+                        if (activeEl.parentNode.nextSibling === null || document.querySelectorAll("INPUT").length === 1) {
+                            disableToggle(activeEl.parentNode.querySelectorAll("INPUT"));
+                            addNewInput();
+                        }
+                    }
+                    if ((e.target.className === "close-button") && e.target.parentNode.querySelector("input[type=text]").value) {
+                        e.target.parentNode.remove();
+                    }
                 }
                 break;
         }
     }
-
     return eventAdder(document.querySelector("#background"))(["keydown", "mousedown"], eventHandler);
 }());
