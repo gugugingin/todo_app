@@ -43,9 +43,9 @@ const ONEPROJECT = (function() {
                             addNewInput();
                         }
                     }
-                    if ((e.target.className === "close-button") && e.target.parentNode.querySelector("input[type=text]").value) {
-                        e.target.parentNode.remove();
-                    }
+                }
+                if ((e.target.className === "close-button") && e.target.parentNode.querySelector("input[type=text]").value) {
+                    e.target.parentNode.remove();
                 }
                 break;
         }
