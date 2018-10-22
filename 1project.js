@@ -7,7 +7,10 @@ const ONEPROJECT = (function() {
         Object.keys(attrs).forEach(el => node.setAttribute(el, attrs[el]));
         return node;
     }
-    const nodeAdder = (type, pr) => pr.appendChild(document.createElement(type));
+    const nodeAdder = (type, pr, refNode) => {
+        if (refNode) return pr.insertBefore(document.createElement(type), refNode);
+        return pr.appendChild(document.createElement(type));
+    }
     const eventAdder = node => (eType,cb) => eType.forEach(el => node.addEventListener(el, cb));
 
     function addNewInput() {
@@ -19,12 +22,19 @@ const ONEPROJECT = (function() {
     }
 
     function liMover(target) {
-        if(document.querySelectorAll("ul").length === 1) {
-            nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" })).innerHTML = "완료된 항목";
+        if(target.className === "done") {
+            let todoLi = nodeAdder("li", wip, document.querySelector("li"));
+            setAttrs(nodeAdder("input", todoLi), { type: "checkbox" });
+            setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력", value: target.nextSibling.innerText, disabled: "true" });
+            setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
+        } else {
+            if(document.querySelectorAll("ul").length === 1) {
+                nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" })).innerHTML = "완료된 항목";
+            }
+            let completedLi = nodeAdder("li", document.querySelector("ul[class=done"));
+            setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
+            nodeAdder("span", completedLi).innerHTML = target.nextSibling.value;
         }
-        let completedLi = nodeAdder("li", document.querySelector("ul[class=done"));
-        setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
-        nodeAdder("span", completedLi).innerHTML = target.nextSibling.value;
     }
 
     function eventHandler(e) {
