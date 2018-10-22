@@ -102,14 +102,14 @@ input:focus {
     margin-right: 10px;
 }
 
-.close-button {
+.btn-del {
     color: #3b3b3b;
     font-size: 24px;
     text-decoration: none;
     margin-left: 10px;
 }
 
-.close-button:after {
+.btn-del:after {
     content: '×';
 }
 

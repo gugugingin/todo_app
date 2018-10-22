@@ -14,7 +14,7 @@ const ONEPROJECT = (function() {
         let todoLi = nodeAdder("li", todoArea);
         setAttrs(nodeAdder("input", todoLi), { type: "checkbox", disabled: "true" });
         setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력" });
-        setAttrs(nodeAdder("a", todoLi), { href: "#", class: "close-button" });
+        setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
         todoArea.lastChild.querySelector("input[type=text]").focus();
     }
 
@@ -54,7 +54,7 @@ const ONEPROJECT = (function() {
                         addNewInput();
                     }
                 }
-                if ((e.target.className === "close-button") && e.target.parentNode.querySelector("input[type=text]").value) {
+                if ((e.target.className === "btn-del") && e.target.parentNode.querySelector("input[type=text]").value) {
                     e.target.parentNode.remove();
                 }
                 if (e.target.type === "checkbox") {
