@@ -112,3 +112,34 @@ input:focus {
 .close-button:after {
     content: '×';
 }
+
+.completed {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.completed p{
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 14px;
+    font-weight: 900;
+    color: #797979;
+}
+
+.completed li{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    /* justify-content: center */
+}
+
+.completed li input[type=checkbox] {
+    margin-right: 10px;
+}
+
+.completed li span{
+    color: #adadad;
+}
