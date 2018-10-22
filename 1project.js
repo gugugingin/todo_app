@@ -1,7 +1,7 @@
 const ONEPROJECT = (function() {
     // const background = document.querySelector("#background");
     const projectArea = document.querySelector(".project_container");
-    const todoArea = document.querySelector(".todo_area");
+    const wip = document.querySelector(".wip");
     const disableToggle = args => args.forEach(el => el.disabled = !el.disabled);
     const setAttrs = (node, attrs) => { 
         Object.keys(attrs).forEach(el => node.setAttribute(el, attrs[el]));
@@ -11,19 +11,19 @@ const ONEPROJECT = (function() {
     const eventAdder = node => (eType,cb) => eType.forEach(el => node.addEventListener(el, cb));
 
     function addNewInput() {
-        let todoLi = nodeAdder("li", todoArea);
+        let todoLi = nodeAdder("li", wip);
         setAttrs(nodeAdder("input", todoLi), { type: "checkbox", disabled: "true" });
         setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력" });
         setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
-        todoArea.lastChild.querySelector("input[type=text]").focus();
+        wip.lastChild.querySelector("input[type=text]").focus();
     }
 
     function liMover(target) {
         if(document.querySelectorAll("ul").length === 1) {
-            nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "completed" })).innerHTML = "완료된 항목";
+            nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" })).innerHTML = "완료된 항목";
         }
-        let completedLi = nodeAdder("li", document.querySelector("ul[class=completed"));
-        setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "completed" });
+        let completedLi = nodeAdder("li", document.querySelector("ul[class=done"));
+        setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
         nodeAdder("span", completedLi).innerHTML = target.nextSibling.value;
     }
 
