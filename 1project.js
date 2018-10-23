@@ -22,19 +22,26 @@ const ONEPROJECT = (function() {
     }
 
     function liMover(target) {
+        let todoValue = target.nextSibling.value || target.nextSibling.innerText;
         if(target.className === "done") {
             let todoLi = nodeAdder("li", wip, document.querySelector("li"));
             setAttrs(nodeAdder("input", todoLi), { type: "checkbox" });
-            setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력", value: target.nextSibling.innerText, disabled: "true" });
+            setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력", value: todoValue, disabled: "true" });
             setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
+            if(document.querySelectorAll("ul[class=done] li").length < 2) {
+                target.parentNode.parentNode.remove();
+            }
         } else {
             if(document.querySelectorAll("ul").length === 1) {
-                nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" })).innerHTML = "완료된 항목";
+                nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" }));
             }
-            let completedLi = nodeAdder("li", document.querySelector("ul[class=done"));
+            var completedLi = nodeAdder("li", document.querySelector("ul[class=done]"));
             setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
-            nodeAdder("span", completedLi).innerHTML = target.nextSibling.value;
+            nodeAdder("span", completedLi).innerHTML = todoValue;
         }
+        target.parentNode.remove();
+        let liNumber = document.querySelectorAll("ul[class=done] li").length ? `(${document.querySelectorAll("ul[class=done] li").length})` : "";
+        if(document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] p").innerText = `완료된 항목 ${liNumber}`;
     }
 
     function eventHandler(e) {
@@ -69,7 +76,6 @@ const ONEPROJECT = (function() {
                 }
                 if (e.target.type === "checkbox") {
                     liMover(e.target);
-                    e.target.parentNode.remove();
                 }
                 break;
         }
