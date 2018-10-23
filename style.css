@@ -103,13 +103,21 @@ input:focus {
 }
 
 .btn-del {
-    color: #3b3b3b;
-    font-size: 24px;
     text-decoration: none;
     margin-left: 10px;
 }
 
-.btn-del:after {
+.btn-del-wip {
+    color: #3b3b3b;
+    font-size: 24px;
+}
+
+.btn-del-done {
+    color: #797979;
+    font-size: 16px;
+}
+
+.btn-del:after{
     content: '×';
 }
 
@@ -140,6 +148,6 @@ input:focus {
     margin-right: 10px;
 }
 
-.done li span{
+.completed li span{
     color: #adadad;
 }

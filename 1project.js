@@ -17,7 +17,7 @@ const ONEPROJECT = (function() {
         let todoLi = nodeAdder("li", wip);
         setAttrs(nodeAdder("input", todoLi), { type: "checkbox", disabled: "true" });
         setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력" });
-        setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
+        setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del btn-del-wip" });
         wip.lastChild.querySelector("input[type=text]").focus();
     }
 
@@ -27,7 +27,7 @@ const ONEPROJECT = (function() {
             let todoLi = nodeAdder("li", wip, document.querySelector("li"));
             setAttrs(nodeAdder("input", todoLi), { type: "checkbox" });
             setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력", value: todoValue, disabled: "true" });
-            setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del" });
+            setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del btn-del-wip" });
             if(document.querySelectorAll("ul[class=done] li").length < 2) {
                 target.parentNode.parentNode.remove();
             }
@@ -38,6 +38,7 @@ const ONEPROJECT = (function() {
             var completedLi = nodeAdder("li", document.querySelector("ul[class=done]"));
             setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
             nodeAdder("span", completedLi).innerHTML = todoValue;
+            setAttrs(nodeAdder("a", completedLi), { href: "#", class: "btn-del btn-del-done" });
         }
         target.parentNode.remove();
         let liNumber = document.querySelectorAll("ul[class=done] li").length ? `(${document.querySelectorAll("ul[class=done] li").length})` : "";
@@ -71,12 +72,13 @@ const ONEPROJECT = (function() {
                         addNewInput();
                     }
                 }
-                if ((e.target.className === "btn-del") && e.target.parentNode.querySelector("input[type=text]").value) {
+                if ((e.target.className === "btn-del btn-del-wip") && e.target.parentNode.querySelector("input[type=text]").value) {
                     e.target.parentNode.remove();
                 }
                 if (e.target.type === "checkbox") {
                     liMover(e.target);
                 }
+                if (e.target.className === "btn-del btn-del-done") e.target.parentNode.remove();
                 break;
         }
     }
