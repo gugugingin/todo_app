@@ -82,7 +82,7 @@ const ONEPROJECT = (function() {
                     }
                 }
                 break;
-            case "pointerdown":
+            case "mousedown":
                 var activeEl = document.activeElement;
                 if (activeEl === e.target) return;
                 if (e.target.type === "text" && e.target.value) {
@@ -101,5 +101,5 @@ const ONEPROJECT = (function() {
                 break;
         }
     }
-    return eventAdder(document.querySelector("#background"))(["keydown", "pointerdown"], eventHandler);
+    return eventAdder(document.querySelector("#background"))(["keydown", "mousedown"], eventHandler);
 }());
