@@ -30,11 +30,11 @@ const ONEPROJECT = (function() {
             setAttrs(nodeAdder("input", todoLi), { type: "text", placeholder: "할 일 입력", value: todoValue, disabled: "true" });
             setAttrs(nodeAdder("a", todoLi), { href: "#", class: "btn-del btn-del-wip" });
             if(document.querySelectorAll("ul[class=done] li").length < 2) {
-                target.parentNode.parentNode.remove();
+                document.querySelector("ul[class=done]").remove();
             }
         } else {
             if(document.querySelectorAll("ul").length === 1) {
-                nodeAdder("p", setAttrs(nodeAdder("ul", projectArea), { class: "done" }));
+                nodeAdder("button", setAttrs(nodeAdder("ul", projectArea), { class: "done" }));
             }
             var completedLi = nodeAdder("li", document.querySelector("ul[class=done]"));
             setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
@@ -43,7 +43,7 @@ const ONEPROJECT = (function() {
         }
         target.parentNode.remove();
         let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-        if(document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] p").innerText = `완료된 항목 ${liNumber}`;
+        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber}`;
     }
 
     function liRemover(target) {
@@ -56,9 +56,16 @@ const ONEPROJECT = (function() {
                 if (nodeCounter("ul[class=done] li") === 1) target.parentNode.parentNode.remove();
                 target.parentNode.remove();
                 let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] p").innerText = `완료된 항목 ${liNumber}`;
+                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber}`;
                 
         }
+    }
+
+    function liHideToggler() {
+        event.preventDefault();
+        var doneLi = document.querySelectorAll("ul[class=done] li");
+        var liHeight = doneLi[0].clientHeight === 18 ? "0px" : "18px";
+        doneLi.forEach(el => el.style.height = liHeight);
     }
 
     function eventHandler(e) {
@@ -75,7 +82,7 @@ const ONEPROJECT = (function() {
                     }
                 }
                 break;
-            case "mousedown":
+            case "pointerdown":
                 var activeEl = document.activeElement;
                 if (activeEl === e.target) return;
                 if (e.target.type === "text" && e.target.value) {
@@ -90,8 +97,9 @@ const ONEPROJECT = (function() {
                 }
                 if (e.target.type === "checkbox") liMover(e.target);
                 if (e.target.classList.contains("btn-del")) liRemover(e.target);
+                if (e.target.nodeName === "BUTTON") { liHideToggler() };
                 break;
         }
     }
-    return eventAdder(document.querySelector("#background"))(["keydown", "mousedown"], eventHandler);
+    return eventAdder(document.querySelector("#background"))(["keydown", "pointerdown"], eventHandler);
 }());

@@ -61,6 +61,7 @@ input[type="text"] {
     padding: 0;
     display: flex;
     vertical-align: middle;
+    text-overflow: ellipsis;
 }
 
 input[type="text"]::placeholder {
@@ -92,7 +93,7 @@ input:focus {
     outline: none;
 }
 
-.wip{
+ul.wip{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -136,7 +137,7 @@ input:focus {
     content: '×';
 }
 
-.done:not(input) {
+ul.done {
     width: 90%;
     min-height: min-content;
     padding: 0;
@@ -145,8 +146,6 @@ input:focus {
 }
 
 .done p{
-    margin: 0;
-    padding-bottom: 20px;
     font-size: 14px;
     font-weight: 900;
     color: #797979;
@@ -156,7 +155,6 @@ input:focus {
     width: 100%;
     list-style-type: none;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     margin-top: 6px;
     height: 18px;
@@ -171,4 +169,27 @@ input:focus {
     margin: 0 10px 0 10px;
     flex-grow: 1;
     font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+}
+
+button{
+    padding: 0;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    color: #3b3b3b;
+    font-size: 14px;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+button:focus{
+    outline: none;
+}
+
+li {
+    overflow: hidden;
 }
