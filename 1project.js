@@ -57,7 +57,6 @@ const ONEPROJECT = (function() {
                 target.parentNode.remove();
                 let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
                 if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber}`;
-                
         }
     }
 
@@ -65,7 +64,10 @@ const ONEPROJECT = (function() {
         event.preventDefault();
         var doneLi = document.querySelectorAll("ul[class=done] li");
         var liHeight = doneLi[0].clientHeight === 18 ? "0px" : "18px";
-        doneLi.forEach(el => el.style.height = liHeight);
+        doneLi.forEach(el => {
+            el.style.height = liHeight;
+            el.style.display = liHeight === "0px" ? "none" : "flex";
+        });
     }
 
     function eventHandler(e) {
