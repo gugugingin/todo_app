@@ -151,6 +151,12 @@ ul.done {
     color: #797979;
 }
 
+div.done {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
 .done li{
     width: 100%;
     list-style-type: none;

@@ -35,15 +35,16 @@ const ONEPROJECT = (function() {
         } else {
             if(document.querySelectorAll("ul").length === 1) {
                 nodeAdder("button", setAttrs(nodeAdder("ul", projectArea), { class: "done" }));
+                setAttrs(nodeAdder("div", document.querySelector("ul[class=done]")), { class: "done" });
             }
-            var completedLi = nodeAdder("li", document.querySelector("ul[class=done]"));
+            var completedLi = nodeAdder("li", document.querySelector("ul[class=done] div"));
             setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
             nodeAdder("span", completedLi).innerHTML = todoValue;
             setAttrs(nodeAdder("a", completedLi), { href: "#", class: "btn-del btn-del-done" });
         }
         target.parentNode.remove();
         let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber}`;
+        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} 보이기`;
     }
 
     function liRemover(target) {
@@ -53,21 +54,24 @@ const ONEPROJECT = (function() {
                 target.parentNode.remove();
                 break;
             case "btn-del-done":
-                if (nodeCounter("ul[class=done] li") === 1) target.parentNode.parentNode.remove();
+                if (nodeCounter("ul[class=done] li") === 1) document.querySelector("ul[class=done]").remove();
                 target.parentNode.remove();
                 let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber}`;
+                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} 보이기`;
         }
     }
 
     function liHideToggler() {
         event.preventDefault();
-        var doneLi = document.querySelectorAll("ul[class=done] li");
-        var liHeight = doneLi[0].clientHeight === 18 ? "0px" : "18px";
-        doneLi.forEach(el => {
-            el.style.height = liHeight;
-            el.style.display = liHeight === "0px" ? "none" : "flex";
-        });
+        let doneLi = document.querySelectorAll("ul[class=done] li");
+        let liHeight = doneLi[0].clientHeight === 18 ? "0px" : "18px";
+        doneLi.forEach(el => el.style.height = liHeight);
+        let doneDiv = document.querySelector("div[class=done]");
+        let displayToggle = doneDiv.style.display === "flex" ? "none" : "flex";
+        doneDiv.style.display = displayToggle;
+        let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
+        let showHideMessage = doneDiv.style.display === "none" ? "보이기" : "숨기기";
+        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} ${showHideMessage}`;
     }
 
     function eventHandler(e) {
