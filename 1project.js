@@ -35,7 +35,7 @@ const ONEPROJECT = (function() {
         } else {
             if(document.querySelectorAll("ul").length === 1) {
                 nodeAdder("button", setAttrs(nodeAdder("ul", projectArea), { class: "done" }));
-                setAttrs(nodeAdder("div", document.querySelector("ul[class=done]")), { class: "done" });
+                setAttrs(nodeAdder("div", document.querySelector("ul[class=done]")), { class: "done", style: "display: none;" });
             }
             var completedLi = nodeAdder("li", document.querySelector("ul[class=done] div"));
             setAttrs(nodeAdder("input", completedLi), { type: "checkbox", checked: "", class: "done" });
@@ -44,7 +44,9 @@ const ONEPROJECT = (function() {
         }
         target.parentNode.remove();
         let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} 보이기`;
+        let doneDiv = document.querySelector("div[class=done]");
+        let showHideMessage = doneDiv.style.display === "none" ? "보이기" : "숨기기";
+        if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} ${showHideMessage}`;
     }
 
     function liRemover(target) {
@@ -57,7 +59,9 @@ const ONEPROJECT = (function() {
                 if (nodeCounter("ul[class=done] li") === 1) document.querySelector("ul[class=done]").remove();
                 target.parentNode.remove();
                 let liNumber = nodeCounter("ul[class=done] li") ? `(${nodeCounter("ul[class=done] li")})` : "";
-                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} 보이기`;
+                let doneDiv = document.querySelector("div[class=done]");
+                let showHideMessage = doneDiv ? doneDiv.style.display === "none" ? "보이기" : "숨기기" : "";
+                if (document.querySelector("ul[class=done]")) document.querySelector("ul[class=done] button").innerText = `완료된 항목 ${liNumber} ${showHideMessage}`;
         }
     }
 

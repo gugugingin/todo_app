@@ -171,7 +171,7 @@ div.done {
 }
 
 .done li span{
-    color: #5c5c5c;
+    color: #797979;
     margin: 0 10px 0 10px;
     flex-grow: 1;
     font-size: 14px;
@@ -185,7 +185,7 @@ button{
     background-color: #ffffff;
     border: none;
     cursor: pointer;
-    color: #3b3b3b;
+    color: #797979;
     font-size: 14px;
     font-weight: 600;
     align-self: flex-start;
